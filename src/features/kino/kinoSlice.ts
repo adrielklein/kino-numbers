@@ -3,7 +3,7 @@ import { RootState } from '../../app/store';
 import { fetchGames } from './kinoAPI';
 
 export interface KinoState {
-  games: Game[];
+  games: GameType[];
   status: 'idle' | 'loading' | 'failed';
 }
 
@@ -12,13 +12,13 @@ const initialState: KinoState = {
   status: 'idle',
 };
 
-interface GameDate {
+export interface GameDate {
   d: string;
   m: string;
   year: string;
 }
 
-interface Game {
+export interface GameType {
   gameNumber: string;
   gameDate: GameDate;
   bonus: number;
@@ -46,7 +46,7 @@ export const kinoSlice = createSlice({
       .addCase(fetchGamesAsync.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(fetchGamesAsync.fulfilled, (state, action: PayloadAction<Game[]>) => {
+      .addCase(fetchGamesAsync.fulfilled, (state, action: PayloadAction<GameType[]>) => {
         state.status = 'idle';
         const gameNumbers = state.games.map(game => game.gameNumber)
         const uniqueNewGames = action.payload.filter(game => !gameNumbers.includes(game.gameNumber));

@@ -25,8 +25,13 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <Game />
+    <div>
+      <div className="AppHeader">KINO</div>
+      <div className="Content">
+        {games.map((game) => (
+          <Game key={game.gameNumber} {...game} />
+        ))}
+      </div>
     </div>
   );
 }

@@ -1,18 +1,31 @@
 import React from "react";
+import "./Game.css";
+import { GameDate, GameType } from "./kinoSlice";
 
-const Game: React.FC = () => {
+interface HeaderBoxProps {
+  label: string;
+  value: string;
+}
+const HeaderBox: React.FC<HeaderBoxProps> = ({ label, value }) => (
+  <div className="HeaderBox">
+    <div className="HeaderLabel">{label}</div>
+    <div className="HeaderValue">{value}</div>
+  </div>
+);
+
+const formatGameDate = (date: GameDate) => `${date.m}/${date.d}/${date.year}`;
+
+const Game: React.FC<GameType> = ({ gameNumber, gameDate, drawNumbers }) => {
   return (
-    <div
-      style={{
-        width: "142px",
-        height: "122px",
-        background: "#02a8f4",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      <div style={{ borderBottom: "1px solid white", height: "32px" }}>
-        header
+    <div className="Container">
+      <div className="Header">
+        <HeaderBox label={"Game"} value={gameNumber} />
+        <HeaderBox label={"Date"} value={formatGameDate(gameDate)} />
+      </div>
+      <div className="NumberGrid">
+        {drawNumbers.map((number) => (
+          <div className="Number">{number}</div>
+        ))}
       </div>
     </div>
   );
