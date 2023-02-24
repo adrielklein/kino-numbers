@@ -20,18 +20,12 @@ const LoadingState = () => (
   </div>
 );
 
-function App() {
-  const scrollRef = useRef<HTMLDivElement>(null);
+const SuccessState = (props: { isInitialLoadingState: boolean }) => {
   const dispatch = useAppDispatch();
   const games = useAppSelector(selectGames);
   const status = useAppSelector(selectStatus);
-  const oldestDrawId = useAppSelector(selectOldestDrawId);
-  const minFetchedGames = useAppSelector(selectMinFetchedGames);
-  const numFetchedGames = useMemo(() => games.length, [games]);
-  const isInitialLoadingState = useMemo(
-    () => numFetchedGames < INITIAL_MIN_FETCHED_GAMES,
-    [status, numFetchedGames]
-  );
+
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   const handleScroll = useCallback(() => {
     const { scrollTop, scrollHeight, clientHeight } = scrollRef.current!;
@@ -41,22 +35,9 @@ function App() {
     }
   }, [dispatch, scrollRef]);
 
-  useEffect(() => {
-    if (numFetchedGames < minFetchedGames) {
-      dispatch(fetchGamesAsync(oldestDrawId));
-    }
-  }, [dispatch, minFetchedGames, oldestDrawId]);
-
-  if (status === "failed") {
-    return (
-      <div>Failed to load data. Please refresh app or contact support.</div>
-    );
-  }
-
   return (
-    <div className="App">
-      <div className="AppHeader">KINO</div>
-      {isInitialLoadingState ? (
+    <>
+      {props.isInitialLoadingState ? (
         <LoadingState />
       ) : (
         <div
@@ -70,6 +51,42 @@ function App() {
           ))}
           {status === "loading" && <LoadingState />}
         </div>
+      )}
+    </>
+  );
+};
+
+const FailedState = () => (
+  <div className="Message">
+    Failed to load data. Please refresh app or contact support.
+  </div>
+);
+
+function App() {
+  const dispatch = useAppDispatch();
+  const games = useAppSelector(selectGames);
+  const status = useAppSelector(selectStatus);
+  const oldestDrawId = useAppSelector(selectOldestDrawId);
+  const minFetchedGames = useAppSelector(selectMinFetchedGames);
+  const numFetchedGames = useMemo(() => games.length, [games]);
+  const isInitialLoadingState = useMemo(
+    () => numFetchedGames < INITIAL_MIN_FETCHED_GAMES,
+    [status, numFetchedGames]
+  );
+
+  useEffect(() => {
+    if (numFetchedGames < minFetchedGames) {
+      dispatch(fetchGamesAsync(oldestDrawId));
+    }
+  }, [dispatch, minFetchedGames, oldestDrawId]);
+
+  return (
+    <div className="App">
+      <div className="AppHeader">KINO</div>
+      {status === "failed" ? (
+        <FailedState />
+      ) : (
+        <SuccessState isInitialLoadingState={isInitialLoadingState} />
       )}
     </div>
   );
