@@ -32,6 +32,12 @@
   }
 }
 
+@media (max-width: 500px) {
+  .ContentColumns {
+    grid-template-columns: 1fr;
+  }
+}
+
 .SpinnerContainer {
   display: flex;
   justify-content: center;
