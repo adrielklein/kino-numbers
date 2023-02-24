@@ -34,11 +34,9 @@ function App() {
   );
 
   const handleScroll = useCallback(() => {
-    console.log("handing scroll");
     const { scrollTop, scrollHeight, clientHeight } = scrollRef.current!;
 
     if (scrollTop + clientHeight === scrollHeight) {
-      console.log("User has scrolled to the bottom of the div!");
       dispatch(increaseMinFetchedGames());
     }
   }, [dispatch, scrollRef]);
