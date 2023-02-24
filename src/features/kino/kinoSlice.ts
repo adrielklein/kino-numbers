@@ -5,11 +5,13 @@ import { fetchGames } from './kinoAPI';
 export interface KinoState {
   games: GameType[];
   status: 'idle' | 'loading' | 'failed';
+  oldestDrawId: string | null;
 }
 
 const initialState: KinoState = {
   games: [],
   status: 'idle',
+  oldestDrawId: null,
 };
 
 export interface GameDate {
@@ -28,8 +30,8 @@ export interface GameType {
 
 export const fetchGamesAsync = createAsyncThunk(
   'kino/fetchGames',
-  async () => {
-    const response = await fetchGames();
+  async (oldestDrawId: string | null) => {
+    const response = await fetchGames(oldestDrawId);
     return response.data;
   }
 );
@@ -52,6 +54,7 @@ export const kinoSlice = createSlice({
         const uniqueNewGames = action.payload.filter(game => !gameNumbers.includes(game.gameNumber));
         const allGames = [...state.games, ...uniqueNewGames]
         state.games = allGames;
+        state.oldestDrawId = allGames[allGames.length - 1]?.gameNumber;
       })
       .addCase(fetchGamesAsync.rejected, (state) => {
         state.status = 'failed';
@@ -62,6 +65,7 @@ export const kinoSlice = createSlice({
 
 export const selectGames = (state: RootState) => state.kino.games;
 export const selectStatus = (state: RootState) => state.kino.status;
+export const selectOldestDrawId = (state: RootState) => state.kino.oldestDrawId;
 
 
 export default kinoSlice.reducer;

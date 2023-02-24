@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import "./App.css";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import Game from "./features/kino/Game";
 import {
   fetchGamesAsync,
   selectGames,
+  selectOldestDrawId,
   selectStatus,
 } from "./features/kino/kinoSlice";
 
@@ -12,12 +13,21 @@ function App() {
   const dispatch = useAppDispatch();
   const games = useAppSelector(selectGames);
   const status = useAppSelector(selectStatus);
+  const oldestDrawId = useAppSelector(selectOldestDrawId);
+  const numFetchedGames = useMemo(() => games.length, [games]);
+
   useEffect(() => {
-    dispatch(fetchGamesAsync());
-  }, []);
+    if (numFetchedGames < 30) {
+      dispatch(fetchGamesAsync(oldestDrawId));
+    }
+  }, [dispatch, numFetchedGames, oldestDrawId]);
 
   if (status === "loading") {
-    return <div>Loading...</div>;
+    return (
+      <div style={{ width: "100px", height: "100px", background: "white" }}>
+        Loading...
+      </div>
+    );
   }
 
   if (status === "failed") {

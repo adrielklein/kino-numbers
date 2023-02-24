@@ -24,7 +24,7 @@ const Game: React.FC<GameType> = ({ gameNumber, gameDate, drawNumbers }) => {
       </div>
       <div className="NumberGrid">
         {drawNumbers.map((number) => (
-          <div className="Number">{number}</div>
+          <div className="Number" key={number}>{number}</div>
         ))}
       </div>
     </div>

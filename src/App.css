@@ -6,7 +6,9 @@
 }
 
 .Content {
-  display: flex;
+  display: grid;
   justify-content: center;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  row-gap: 30px;
   margin: 30px;
 }
