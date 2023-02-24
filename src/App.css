@@ -1,6 +1,8 @@
 .AppHeader {
   font-size: 100px;
   color: white;
+  font-style: italic;
+  font-weight: 650;
 }
 
 .Content {
