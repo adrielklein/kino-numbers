@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import "./App.css";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
+import Game from "./features/kino/Game";
 import {
   fetchGamesAsync,
   selectGames,
@@ -12,7 +13,6 @@ function App() {
   const games = useAppSelector(selectGames);
   const status = useAppSelector(selectStatus);
   useEffect(() => {
-    console.log('using affect')
     dispatch(fetchGamesAsync());
   }, []);
 
@@ -24,7 +24,11 @@ function App() {
     return <div>Failed to load data</div>;
   }
 
-  return <div className="App">{JSON.stringify(games)}</div>;
+  return (
+    <div className="App">
+      <Game />
+    </div>
+  );
 }
 
 export default App;
