@@ -12,8 +12,9 @@ function App() {
   const games = useAppSelector(selectGames);
   const status = useAppSelector(selectStatus);
   useEffect(() => {
+    console.log('using affect')
     dispatch(fetchGamesAsync());
-  }, [dispatch]);
+  }, []);
 
   if (status === "loading") {
     return <div>Loading...</div>;

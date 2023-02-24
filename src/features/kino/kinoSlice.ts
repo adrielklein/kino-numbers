@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { fetchGames } from './kinoAPI';
 
@@ -46,11 +46,12 @@ export const kinoSlice = createSlice({
       .addCase(fetchGamesAsync.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(fetchGamesAsync.fulfilled, (state, action) => {
+      .addCase(fetchGamesAsync.fulfilled, (state, action: PayloadAction<Game[]>) => {
         state.status = 'idle';
-        //TODO fix
-        console.log('new games', [...state.games, ...action.payload]);
-        state.games = [...state.games, ...action.payload];
+        const gameNumbers = state.games.map(game => game.gameNumber)
+        const uniqueNewGames = action.payload.filter(game => !gameNumbers.includes(game.gameNumber));
+        const allGames = [...state.games, ...uniqueNewGames]
+        state.games = allGames;
       })
       .addCase(fetchGamesAsync.rejected, (state) => {
         state.status = 'failed';
