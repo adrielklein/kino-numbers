@@ -1,11 +1,29 @@
-import React, { useState } from "react";
-import logo from "./logo.svg";
-import { Counter } from "./features/counter/Counter";
+import { useEffect } from "react";
 import "./App.css";
+import { useAppDispatch, useAppSelector } from "./app/hooks";
+import {
+  fetchGamesAsync,
+  selectGames,
+  selectStatus,
+} from "./features/kino/kinoSlice";
 
 function App() {
-  const [data, setData] = useState();
-  return <div className="App">hello world</div>;
+  const dispatch = useAppDispatch();
+  const games = useAppSelector(selectGames);
+  const status = useAppSelector(selectStatus);
+  useEffect(() => {
+    dispatch(fetchGamesAsync());
+  }, [dispatch]);
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  if (status === "failed") {
+    return <div>Failed to load data</div>;
+  }
+
+  return <div className="App">{JSON.stringify(games)}</div>;
 }
 
 export default App;
