@@ -4,13 +4,20 @@
   background: #02a8f4;
   display: flex;
   flex-direction: column;
+  border: 3px solid black;
+  border-radius: 2px;
+}
+
+.outer-container:hover {
+  background: #375acd;
+  border: 3px solid white;
 }
 
 .header {
   border-bottom: 2px solid white;
   height: 25%;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
   padding: 8px 0px 8px 0px;
 }
 
@@ -33,7 +40,7 @@
 
 .number-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(5, 1fr);
   row-gap: 8px;
   justify-items: center;
   padding: 12px;

@@ -12,8 +12,8 @@
 .content {
   display: grid;
   justify-content: center;
-  height: 100vh; 
-  overflow: auto; 
+  height: 100vh;
+  overflow: auto;
   row-gap: 30px;
 }
 
