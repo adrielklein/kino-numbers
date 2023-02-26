@@ -71,14 +71,14 @@ function App() {
   const numFetchedGames = useMemo(() => games.length, [games]);
   const isInitialLoadingState = useMemo(
     () => numFetchedGames < INITIAL_MIN_FETCHED_GAMES,
-    [status, numFetchedGames]
+    [numFetchedGames]
   );
 
   useEffect(() => {
     if (numFetchedGames < minFetchedGames) {
       dispatch(fetchGamesAsync(oldestDrawId));
     }
-  }, [dispatch, minFetchedGames, oldestDrawId]);
+  }, [dispatch, minFetchedGames, oldestDrawId, numFetchedGames]);
 
   return (
     <div className="app">

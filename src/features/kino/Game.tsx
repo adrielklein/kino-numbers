@@ -1,11 +1,7 @@
 import React, { useCallback } from "react";
 import { useAppDispatch } from "../../app/hooks";
 import "./Game.css";
-import {
-  GameDate,
-  GameType,
-  setSelectedGame,
-} from "./kinoSlice";
+import { GameDate, GameType, setSelectedGame } from "./kinoSlice";
 
 interface HeaderBoxProps {
   label: string;
@@ -31,7 +27,7 @@ const Game: React.FC<GameProps> = ({ game, isSelected }) => {
 
   const handleClick = useCallback(() => {
     dispatch(setSelectedGame(isSelected ? null : game));
-  }, [isSelected, dispatch]);
+  }, [isSelected, dispatch, game]);
   return (
     <div
       className={`outer-container ${
