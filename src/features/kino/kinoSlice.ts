@@ -64,7 +64,7 @@ export const kinoSlice = createSlice({
       .addCase(fetchGamesAsync.fulfilled, (state, action: PayloadAction<GameType[]>) => {
         state.status = 'idle';
         const gameNumbers = state.games.map(game => game.gameNumber)
-        const uniqueNewGames = action.payload.filter(game => !gameNumbers.includes(game.gameNumber));
+        const uniqueNewGames = action.payload.filter(game => !gameNumbers.includes(game.gameNumber)); // TODO: migrate to hash maps here to improve performance
         const allGames = [...state.games, ...uniqueNewGames]
         state.games = allGames;
         state.oldestDrawId = allGames[allGames.length - 1]?.gameNumber;
