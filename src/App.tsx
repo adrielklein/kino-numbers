@@ -109,8 +109,14 @@ function App() {
         <SuccessState isInitialLoadingState={isInitialLoadingState} />
       )}
 
-      <Modal show={!!selectedGame} onHide={hideModal} centered>
-        <Modal.Body>
+      <Modal
+        show={!!selectedGame}
+        onHide={hideModal}
+        contentClassName="modal"
+        size="sm"
+        centered
+      >
+        <Modal.Body onClick={hideModal}>
           {selectedGame && <Game {...selectedGame} onClick={hideModal} />}
         </Modal.Body>
       </Modal>

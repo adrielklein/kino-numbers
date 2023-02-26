@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useMemo } from "react";
+import { useAppSelector } from "../../app/hooks";
 import "./Game.css";
-import { GameDate, GameType } from "./kinoSlice";
+import { GameDate, GameType, selectSelectedGame } from "./kinoSlice";
 
 interface HeaderBoxProps {
   label: string;
@@ -21,8 +22,18 @@ const Game: React.FC<GameType & { onClick: () => void }> = ({
   drawNumbers,
   onClick,
 }) => {
+  const selectedGame = useAppSelector(selectSelectedGame);
+  const isSelected = useMemo(
+    () => selectedGame?.gameNumber === gameNumber,
+    [selectedGame, gameNumber]
+  );
   return (
-    <div className="outer-container" onClick={onClick}>
+    <div
+      className={`outer-container ${
+        isSelected ? "outer-container-selected" : ""
+      }`}
+      onClick={onClick}
+    >
       <div className="header">
         <HeaderBox label={"GAME"} value={gameNumber} />
         <HeaderBox label={"DATE"} value={formatGameDate(gameDate)} />

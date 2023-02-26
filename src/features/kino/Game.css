@@ -13,6 +13,14 @@
   border: 3px solid white;
 }
 
+.outer-container-selected {
+  border: 3px solid white;
+}
+.outer-container-selected:hover {
+  background: #02a8f4;
+  border: 3px solid white;
+}
+
 .header {
   border-bottom: 2px solid white;
   height: 25%;
