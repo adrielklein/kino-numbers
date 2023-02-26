@@ -7,9 +7,9 @@ interface HeaderBoxProps {
   value: string;
 }
 const HeaderBox: React.FC<HeaderBoxProps> = ({ label, value }) => (
-  <div className="HeaderBox">
-    <div className="HeaderLabel">{label}</div>
-    <div className="HeaderValue">{value}</div>
+  <div className="header-box">
+    <div className="header-label">{label}</div>
+    <div className="header-value">{value}</div>
   </div>
 );
 
@@ -17,14 +17,14 @@ const formatGameDate = (date: GameDate) => `${date.m}/${date.d}/${date.year}`;
 
 const Game: React.FC<GameType> = ({ gameNumber, gameDate, drawNumbers }) => {
   return (
-    <div className="Container">
-      <div className="Header">
-        <HeaderBox label={"Game"} value={gameNumber} />
-        <HeaderBox label={"Date"} value={formatGameDate(gameDate)} />
+    <div className="outer-container">
+      <div className="header">
+        <HeaderBox label={"GAME"} value={gameNumber} />
+        <HeaderBox label={"DATE"} value={formatGameDate(gameDate)} />
       </div>
-      <div className="NumberGrid">
+      <div className="number-grid">
         {drawNumbers.map((number) => (
-          <div className="Number" key={number}>{number}</div>
+          <div className="number" key={number}>{number}</div>
         ))}
       </div>
     </div>

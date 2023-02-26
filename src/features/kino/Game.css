@@ -1,4 +1,4 @@
-.Container {
+.outer-container {
   width: 232px;
   max-height: 253px;
   background: #02a8f4;
@@ -6,31 +6,32 @@
   flex-direction: column;
 }
 
-.Header {
-  border-bottom: 1px solid white;
+.header {
+  border-bottom: 2px solid white;
   height: 25%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding: 8px 0px 8px 0px;
 }
 
-.HeaderBox {
+.header-box {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.HeaderLabel {
-  font-weight: bold;
+.header-label {
+  font-weight: 700;
+  font-size: 12px;
 }
 
-.HeaderValue {
+.header-value {
   color: white;
-  font-weight: 600;
+  font-weight: 700;
 }
 
-.NumberGrid {
+.number-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   row-gap: 8px;
@@ -38,7 +39,7 @@
   padding: 12px;
 }
 
-.Number {
+.number {
   width: 35px;
   height: 35px;
   border-radius: 50%;

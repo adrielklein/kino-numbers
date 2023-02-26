@@ -1,56 +1,57 @@
-.App {
+.app {
   margin: 30px;
 }
 
-.AppHeader {
+.app-header {
   font-size: 100px;
   color: white;
   font-style: italic;
   font-weight: 650;
 }
 
-.Content {
+.content {
   display: grid;
   justify-content: center;
-
+  height: 100vh; 
+  overflow: auto; 
   row-gap: 30px;
 }
 
-.ContentColumns {
+.content-columns {
   grid-template-columns: repeat(5, 1fr);
 }
 
 @media (max-width: 1260px) {
-  .ContentColumns {
+  .content-columns {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media (max-width: 800px) {
-  .ContentColumns {
+  .content-columns {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 500px) {
-  .ContentColumns {
+  .content-columns {
     grid-template-columns: 1fr;
   }
 }
 
-.SpinnerContainer {
+.spinner-container {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.Spinner {
+.spinner {
   width: 5rem !important;
   height: 5rem !important;
   border-width: 10px !important;
 }
 
-.Message {
+.message {
   font-size: 20px;
   color: white;
 }

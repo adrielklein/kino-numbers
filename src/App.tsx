@@ -15,8 +15,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Spinner from "react-bootstrap/Spinner";
 
 const LoadingState = () => (
-  <div className="SpinnerContainer">
-    <Spinner className="Spinner" animation="border" variant="light" />
+  <div className="spinner-container">
+    <Spinner className="spinner" animation="border" variant="light" />
   </div>
 );
 
@@ -41,10 +41,9 @@ const SuccessState = (props: { isInitialLoadingState: boolean }) => {
         <LoadingState />
       ) : (
         <div
-          className="Content ContentColumns"
+          className="content content-columns"
           ref={scrollRef}
           onScroll={handleScroll}
-          style={{ height: "100vh", overflow: "auto" }}
         >
           {games.map((game) => (
             <Game key={game.gameNumber} {...game} />
@@ -57,7 +56,7 @@ const SuccessState = (props: { isInitialLoadingState: boolean }) => {
 };
 
 const FailedState = () => (
-  <div className="Message">
+  <div className="message">
     Failed to load data. Please refresh app or contact support.
   </div>
 );
@@ -81,8 +80,8 @@ function App() {
   }, [dispatch, minFetchedGames, oldestDrawId]);
 
   return (
-    <div className="App">
-      <div className="AppHeader">KINO</div>
+    <div className="app">
+      <div className="app-header">KINO</div>
       {status === "failed" ? (
         <FailedState />
       ) : (
