@@ -21,7 +21,7 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 
 ### `npm deploy`
 
-To deploy the app, run `yarn deploy` from the command line while you are on `main` branch.
+To deploy the app, run `npm deploy` from the command line while you are on `main` branch.
 
 This will create and deploy a commit to the gh-pages branch where the app will be deployed from. This will create some changes locally. DON'T COMMIT THEM! Just discard them and continue with development.
 
