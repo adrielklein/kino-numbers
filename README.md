@@ -2,6 +2,8 @@
 
 Please check out the [live app here 🚀](https://adrielklein.github.io/kino-numbers/)
 
+<img width="810" alt="Screen Shot 2023-02-26 at 12 59 17 PM" src="https://user-images.githubusercontent.com/3189055/221431046-80d2f826-34d1-4f4d-b86b-8929e79eaf06.png">
+
 ## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
