@@ -1,7 +1,11 @@
-import React, { useMemo } from "react";
-import { useAppSelector } from "../../app/hooks";
+import React, { useCallback } from "react";
+import { useAppDispatch } from "../../app/hooks";
 import "./Game.css";
-import { GameDate, GameType, selectSelectedGame } from "./kinoSlice";
+import {
+  GameDate,
+  GameType,
+  setSelectedGame,
+} from "./kinoSlice";
 
 interface HeaderBoxProps {
   label: string;
@@ -16,23 +20,24 @@ const HeaderBox: React.FC<HeaderBoxProps> = ({ label, value }) => (
 
 const formatGameDate = (date: GameDate) => `${date.m}/${date.d}/${date.year}`;
 
-const Game: React.FC<GameType & { onClick: () => void }> = ({
-  gameNumber,
-  gameDate,
-  drawNumbers,
-  onClick,
-}) => {
-  const selectedGame = useAppSelector(selectSelectedGame);
-  const isSelected = useMemo(
-    () => selectedGame?.gameNumber === gameNumber,
-    [selectedGame, gameNumber]
-  );
+interface GameProps {
+  game: GameType;
+  isSelected: boolean;
+}
+
+const Game: React.FC<GameProps> = ({ game, isSelected }) => {
+  const { gameNumber, gameDate, drawNumbers } = game;
+  const dispatch = useAppDispatch();
+
+  const handleClick = useCallback(() => {
+    dispatch(setSelectedGame(isSelected ? null : game));
+  }, [isSelected, dispatch]);
   return (
     <div
       className={`outer-container ${
         isSelected ? "outer-container-selected" : ""
       }`}
-      onClick={onClick}
+      onClick={handleClick}
     >
       <div className="header">
         <HeaderBox label={"GAME"} value={gameNumber} />

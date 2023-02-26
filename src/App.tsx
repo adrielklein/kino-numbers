@@ -14,7 +14,6 @@ import {
   selectOldestDrawId,
   selectSelectedGame,
   selectStatus,
-  GameType,
 } from "./features/kino/kinoSlice";
 import Modal from "react-bootstrap/Modal";
 
@@ -39,14 +38,6 @@ const SuccessState = (props: { isInitialLoadingState: boolean }) => {
     }
   }, [dispatch, scrollRef]);
 
-  const makeShowModal = useCallback(
-    (game: GameType) => {
-      const showModal = () => dispatch(setSelectedGame(game));
-      return showModal;
-    },
-    [dispatch]
-  );
-
   return (
     <>
       {props.isInitialLoadingState ? (
@@ -58,11 +49,7 @@ const SuccessState = (props: { isInitialLoadingState: boolean }) => {
           onScroll={handleScroll}
         >
           {games.map((game) => (
-            <Game
-              key={game.gameNumber}
-              {...game}
-              onClick={makeShowModal(game)}
-            />
+            <Game key={game.gameNumber} game={game} isSelected={false} />
           ))}
           {status === "loading" && <LoadingState />}
         </div>
@@ -117,7 +104,7 @@ function App() {
         centered
       >
         <Modal.Body onClick={hideModal}>
-          {selectedGame && <Game {...selectedGame} onClick={hideModal} />}
+          {selectedGame && <Game game={selectedGame} isSelected={true} />}
         </Modal.Body>
       </Modal>
     </div>
