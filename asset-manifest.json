@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/kino-numbers/static/css/main.74e341cd.css",
+    "main.css": "/kino-numbers/static/css/main.859d353f.css",
     "main.js": "/kino-numbers/static/js/main.f1c95571.js",
     "index.html": "/kino-numbers/index.html",
-    "main.74e341cd.css.map": "/kino-numbers/static/css/main.74e341cd.css.map",
+    "main.859d353f.css.map": "/kino-numbers/static/css/main.859d353f.css.map",
     "main.f1c95571.js.map": "/kino-numbers/static/js/main.f1c95571.js.map"
   },
   "entrypoints": [
-    "static/css/main.74e341cd.css",
+    "static/css/main.859d353f.css",
     "static/js/main.f1c95571.js"
   ]
 }
