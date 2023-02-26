@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import Spinner from "react-bootstrap/Spinner";
 import "./App.css";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
@@ -7,15 +7,13 @@ import Game from "./features/kino/Game";
 import {
   fetchGamesAsync,
   increaseMinFetchedGames,
-  setSelectedGame,
   INITIAL_MIN_FETCHED_GAMES,
   selectGames,
   selectMinFetchedGames,
   selectOldestDrawId,
-  selectSelectedGame,
   selectStatus,
 } from "./features/kino/kinoSlice";
-import Modal from "react-bootstrap/Modal";
+import ModalManager from "./ModalManager";
 
 const LoadingState = () => (
   <div className="spinner-container">
@@ -70,16 +68,11 @@ function App() {
   const status = useAppSelector(selectStatus);
   const oldestDrawId = useAppSelector(selectOldestDrawId);
   const minFetchedGames = useAppSelector(selectMinFetchedGames);
-  const selectedGame = useAppSelector(selectSelectedGame);
   const numFetchedGames = useMemo(() => games.length, [games]);
   const isInitialLoadingState = useMemo(
     () => numFetchedGames < INITIAL_MIN_FETCHED_GAMES,
     [status, numFetchedGames]
   );
-
-  const hideModal = useCallback(() => {
-    dispatch(setSelectedGame(null));
-  }, [dispatch]);
 
   useEffect(() => {
     if (numFetchedGames < minFetchedGames) {
@@ -95,18 +88,7 @@ function App() {
       ) : (
         <SuccessState isInitialLoadingState={isInitialLoadingState} />
       )}
-
-      <Modal
-        show={!!selectedGame}
-        onHide={hideModal}
-        contentClassName="modal"
-        size="sm"
-        centered
-      >
-        <Modal.Body onClick={hideModal}>
-          {selectedGame && <Game game={selectedGame} isSelected={true} />}
-        </Modal.Body>
-      </Modal>
+      <ModalManager />
     </div>
   );
 }
