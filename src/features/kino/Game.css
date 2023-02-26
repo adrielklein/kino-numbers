@@ -23,7 +23,6 @@
 
 .header {
   border-bottom: 2px solid white;
-  height: 25%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   padding: 8px 0px 8px 0px;
