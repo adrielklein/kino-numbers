@@ -1,18 +1,22 @@
-import { useCallback, useEffect, useMemo, useRef } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import Spinner from "react-bootstrap/Spinner";
 import "./App.css";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import Game from "./features/kino/Game";
 import {
   fetchGamesAsync,
+  increaseMinFetchedGames,
+  setSelectedGame,
+  INITIAL_MIN_FETCHED_GAMES,
   selectGames,
   selectMinFetchedGames,
   selectOldestDrawId,
+  selectSelectedGame,
   selectStatus,
-  increaseMinFetchedGames,
-  INITIAL_MIN_FETCHED_GAMES,
+  GameType,
 } from "./features/kino/kinoSlice";
-import "bootstrap/dist/css/bootstrap.min.css";
-import Spinner from "react-bootstrap/Spinner";
+import Modal from "react-bootstrap/Modal";
 
 const LoadingState = () => (
   <div className="spinner-container">
@@ -35,6 +39,14 @@ const SuccessState = (props: { isInitialLoadingState: boolean }) => {
     }
   }, [dispatch, scrollRef]);
 
+  const makeShowModal = useCallback(
+    (game: GameType) => {
+      const showModal = () => dispatch(setSelectedGame(game));
+      return showModal;
+    },
+    [dispatch]
+  );
+
   return (
     <>
       {props.isInitialLoadingState ? (
@@ -46,7 +58,11 @@ const SuccessState = (props: { isInitialLoadingState: boolean }) => {
           onScroll={handleScroll}
         >
           {games.map((game) => (
-            <Game key={game.gameNumber} {...game} />
+            <Game
+              key={game.gameNumber}
+              {...game}
+              onClick={makeShowModal(game)}
+            />
           ))}
           {status === "loading" && <LoadingState />}
         </div>
@@ -67,11 +83,16 @@ function App() {
   const status = useAppSelector(selectStatus);
   const oldestDrawId = useAppSelector(selectOldestDrawId);
   const minFetchedGames = useAppSelector(selectMinFetchedGames);
+  const selectedGame = useAppSelector(selectSelectedGame);
   const numFetchedGames = useMemo(() => games.length, [games]);
   const isInitialLoadingState = useMemo(
     () => numFetchedGames < INITIAL_MIN_FETCHED_GAMES,
     [status, numFetchedGames]
   );
+
+  const hideModal = useCallback(() => {
+    dispatch(setSelectedGame(null));
+  }, [dispatch]);
 
   useEffect(() => {
     if (numFetchedGames < minFetchedGames) {
@@ -87,6 +108,12 @@ function App() {
       ) : (
         <SuccessState isInitialLoadingState={isInitialLoadingState} />
       )}
+
+      <Modal show={!!selectedGame} onHide={hideModal} centered>
+        <Modal.Body>
+          {selectedGame && <Game {...selectedGame} onClick={hideModal} />}
+        </Modal.Body>
+      </Modal>
     </div>
   );
 }

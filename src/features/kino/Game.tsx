@@ -15,16 +15,23 @@ const HeaderBox: React.FC<HeaderBoxProps> = ({ label, value }) => (
 
 const formatGameDate = (date: GameDate) => `${date.m}/${date.d}/${date.year}`;
 
-const Game: React.FC<GameType> = ({ gameNumber, gameDate, drawNumbers }) => {
+const Game: React.FC<GameType & { onClick: () => void }> = ({
+  gameNumber,
+  gameDate,
+  drawNumbers,
+  onClick,
+}) => {
   return (
-    <div className="outer-container">
+    <div className="outer-container" onClick={onClick}>
       <div className="header">
         <HeaderBox label={"GAME"} value={gameNumber} />
         <HeaderBox label={"DATE"} value={formatGameDate(gameDate)} />
       </div>
       <div className="number-grid">
         {drawNumbers.map((number) => (
-          <div className="number" key={number}>{number}</div>
+          <div className="number" key={number}>
+            {number}
+          </div>
         ))}
       </div>
     </div>
