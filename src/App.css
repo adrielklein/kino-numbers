@@ -60,5 +60,5 @@
   align-items: center;
   background-color: transparent;
   border: none;
-  scale: 125%;
+  transform: scale(1.25);
 }
