@@ -58,16 +58,7 @@ const SuccessState = (props: { isInitialLoadingState: boolean }) => {
 
 const FailedState = () => (
   <div className="message">
-    Failed to load data. If you haven't request temporary access to{" "}
-    <b>CORS Anywhere</b>,{" "}
-    <a
-      href="https://cors-anywhere.herokuapp.com/corsdemo"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      please do so here
-    </a>
-    . Otherwise please refresh app or contact support.
+    Failed to load data. Please refresh app or contact support.
   </div>
 );
 

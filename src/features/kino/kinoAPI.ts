@@ -1,8 +1,7 @@
 import axios from 'axios';
 
-const PROXY_URL = "https://cors-anywhere.herokuapp.com/"
 
-const DRAWINGS_URL = `${PROXY_URL}https://puertorico.secondchancebonuszone.com/kino/past_drawings.php`;
+const DRAWINGS_URL = "https://kino.enete.net";
 
 
 export const fetchGames = (oldestDrawId: string | null) => {
